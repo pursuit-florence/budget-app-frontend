@@ -1,16 +1,19 @@
 import { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import '../index.css'
 
 export default function TransactionFormEdit() {
   let { index } = useParams();
 
   const [editForm, setEditForm] = useState({
-    name: "",
-    url: "",
-    category: "",
-    description: "",
-    isFavorite: false,
+    transactionId: "",
+    item_name: "",
+    amount: "",
+    date: "",
+    from: "",
+    category:""
+
   });
   let navigate = useNavigate();
   const handleTextChange = (event) => {
@@ -46,9 +49,9 @@ export default function TransactionFormEdit() {
   };
   
   return (
-    <div className="transactionId">
+    <div className="Edit">
       <form onSubmit={handleSubmit}>
-        <label htmlFor="transactionId">transactionId:</label>
+        <label htmlFor="transactionId">TransactionId:</label>
         <input
           id="transactionId"
           value={editForm.transactionId}
@@ -58,7 +61,7 @@ export default function TransactionFormEdit() {
           required
         />
         
-        <label htmlFor="item_name">item_name:</label>
+        <label htmlFor="item_name">Item Name:</label>
         <input
           id="item_name"
           value={editForm.item_name}
@@ -68,7 +71,7 @@ export default function TransactionFormEdit() {
           required
         />
         
-        <label htmlFor="amount">amount:</label>
+        <label htmlFor="amount">Amount:</label>
         <input
           id="amount"
           value={editForm.amount}
@@ -78,7 +81,7 @@ export default function TransactionFormEdit() {
           required
         />
 
-<label htmlFor="from">from:</label>
+<label htmlFor="from">From:</label>
         <input
           id="from"
           value={editForm.from}
@@ -88,7 +91,7 @@ export default function TransactionFormEdit() {
           required
         />
 
-<label htmlFor="date">date:</label>
+<label htmlFor="date">Date:</label>
         <input
           id="date"
           value={editForm.date}
@@ -99,7 +102,7 @@ export default function TransactionFormEdit() {
         />
        
 
-        <label htmlFor="category">category:</label>
+        <label htmlFor="category">Category:</label>
         <input
           id="category"
           value={editForm.category}
@@ -113,7 +116,7 @@ export default function TransactionFormEdit() {
         <input type="submit" />
       </form>
       <Link to={`/transactions`}>
-        <button>Nevermind!</button>
+        <button>Cancel</button>
       </Link>
     </div>
   );

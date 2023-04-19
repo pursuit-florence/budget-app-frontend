@@ -1,78 +1,84 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
+import '../index.css'
+import axios from "axios";
 function TransactionForm() {
   let { index } = useParams();
-
   const [transactionForm, setTransactionForm] = useState({
-    name: "",
-    url: "",
-    category: "",
-    description: "",
-    isFavorite: false,
+    transactionId: "",
+    item_name: "",
+    amount: "",
+    date: "",
+    from: "",
+    category:""
   });
-
+  let navigate = useNavigate()
   const handleTextChange = (event) => {
     setTransactionForm({ ...transactionForm, [event.target.id]: event.target.value });
   };
-
-  // const handleCheckboxChange = () => {
-  //   setTransactionForm({ ...transactionForm, isFavorite: !transactionForm.isFavorite });
-  // };
-
   useEffect(() => {}, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    axios
+    .post(`${process.env.REACT_APP_API_URL}/transactions`, transactionForm)  
+    .then(() => {
+      navigate("/transactions"); 
+    })
+    .catch((e) => {
+      console.log(e);
+    });
   };
   return (
-    <div className="NewForm">
+    <div className="New">
+      <h1>Add a new item</h1>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="item_name">Item Name:</label>
+
+      <label htmlFor="date">Date</label>
+        <input
+          id="date"
+          type="date"
+          name="date"
+          value={transactionForm.date}
+          placeholder="date"
+          onChange={handleTextChange}
+          
+        />
+        <label htmlFor="item_name">Name</label>
         <input
           id="item_name"
           value={transactionForm.item_name}
           type="text"
           onChange={handleTextChange}
-          placeholder="transaction"
+          placeholder="name"
           required
         />
-        {/* <label htmlFor="url">URL:</label>
-        <input
-          id="url"
-          type="text"
-          pattern="http[s]*://.+"
-          required
-          value={transactionForm.url}
-          placeholder="http://"
-          onChange={handleTextChange}
-        /> */}
-        <label htmlFor="amount">Amount:</label>
+       
+        <label htmlFor="amount">Amount</label>
         <input
           id="amount"
           type="number"
           name="amount"
           value={transactionForm.amount}
-          placeholder="amount paid.."
+          placeholder="amount"
           onChange={handleTextChange}
         />
-        <label htmlFor="from">From:</label>
+        <label htmlFor="from">From</label>
         <input
           id="from"
           type="text"
           name="from"
           value={transactionForm.from}
-          placeholder="payment from who"
+          placeholder="from"
           onChange={handleTextChange}
         />
         
         <br />
 
         <input type="submit" />
+      
       </form>
-      <Link to={`/bookmarks/${index}`}>
-        <button>Nevermind!</button>
-      </Link>
     </div>
   );
 }

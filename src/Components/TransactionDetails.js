@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-
+import '../index.css'
 
 function OneTransaction() {
   const [trans, setTrans] = useState({});
@@ -12,7 +12,7 @@ function OneTransaction() {
     axios
       .get(`${process.env.REACT_APP_API_URL}/transactions/${index}`)
       .then((response) => {
-        
+        console.log(response.data)
         setTrans(response.data);
       })
       .catch(() => {
@@ -22,7 +22,7 @@ function OneTransaction() {
   
   const handleDelete = () => {
     axios
-      .delete(`${process.env.REACT_APP_API_URL}/transaction/${index}`)
+      .delete(`${process.env.REACT_APP_API_URL}/transactions/${index}`)
       .then(() => {
         navigate("/transactions");
       });
@@ -37,13 +37,10 @@ function OneTransaction() {
       </h3>
       <h5>
         <span>
-          {trans.item_name}
+          {trans.amount}
         </span>{" "}
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        {/* {bookmark.url} */}
       </h5>
-      {/* <h6>{bookmark.category}</h6>
-      <p>{bookmark.description}</p> */}
       <div className="showNavigation">
         <div>
           {" "}
@@ -60,7 +57,7 @@ function OneTransaction() {
         <div>
           {" "}
            <button onClick={handleDelete}>Delete</button> 
-          {/* <button>Delete</button> */}
+        
         </div>
       </div>
     </article>

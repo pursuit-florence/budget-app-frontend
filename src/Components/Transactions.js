@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Transaction from "./Transaction";
+import '../index.css'
 
 function Transactions() {
   const [transactions, setTransactions] = useState([]);
@@ -16,9 +17,9 @@ function Transactions() {
         <table>
           <thead>
             <tr>
-              <th></th>
-              <th>Take me there</th>
-              <th>See this bookmark</th>
+              <th>Date</th>
+              <th>Item Name</th>
+              <th>Amount</th>
             </tr>
           </thead>
           <tbody>
